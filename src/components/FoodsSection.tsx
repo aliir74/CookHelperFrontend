@@ -1,13 +1,9 @@
 import Food from "./Food";
-import FoodType from "../types/food";
-import IngredientType from "../types/ingredient";
-function FoodsSection({
-  selectedIngredients,
-  foods,
-}: {
-  selectedIngredients: IngredientType[];
-  foods: FoodType[];
-}) {
+import useSelectedIngredients from "../hooks/useSelectedIngredients";
+import useFoods from "../hooks/useFoods";
+function FoodsSection() {
+  const { foods } = useFoods();
+  const { selectedIngredients } = useSelectedIngredients();
   return (
     <div className="card w-full bg-base-100 bg-white/80 shadow-xl">
       <div className="card-body">

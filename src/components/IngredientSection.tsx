@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import IngredientCategoryDropDown from "./IngredientCategory";
-import IngredientType from "../types/ingredient";
-
-type Category = {
-  type_display: string;
-  icon: string;
-  ingredients: Array<{
-    name: string;
-    type: string;
-    type_display: string;
-  }>;
-};
-
-function IngredientSection({
-  selectedIngredients,
-  setSelectedIngredients,
-}: {
-  selectedIngredients: IngredientType[];
-  setSelectedIngredients: (ingredients: IngredientType[]) => void;
-}) {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
+import useCategories from "../hooks/useCategories";
+import CategoryType from "../types/category";
+import useSelectedIngredients from "../hooks/useSelectedIngredients";
+function IngredientSection() {
+  const { categories, setCategories } = useCategories();
+  useSelectedIngredients();
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -32,7 +15,7 @@ function IngredientSection({
         }
         const data = await response.json();
         const categoriesArray = Object.entries(
-          data.ingredients_by_type as Category[],
+          data.ingredients_by_type as CategoryType[],
         ).map(([type_display, data]) => ({
           type_display: type_display as string,
           icon: data.icon as string,
@@ -44,32 +27,12 @@ function IngredientSection({
         }));
         setCategories(categoriesArray);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setIsLoading(false);
+        console.error(err);
       }
     };
 
     fetchCategories();
-  }, []);
-
-  const handleIngredientClick = (ingredient: IngredientType) => {
-    const newIngredients = (prevIngredients: IngredientType[]) =>
-      prevIngredients.some((selected) => selected.name === ingredient.name)
-        ? prevIngredients.filter(
-            (selected) => selected.name !== ingredient.name,
-          )
-        : [...prevIngredients, ingredient];
-    setSelectedIngredients(newIngredients(selectedIngredients));
-  };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  }, [setCategories]);
 
   return (
     <div className="card w-full bg-base-100 bg-white/80 shadow-xl">
@@ -84,8 +47,6 @@ function IngredientSection({
               title={category.type_display}
               ingredients={category.ingredients}
               icon={category.icon}
-              selectedIngredients={selectedIngredients}
-              onIngredientClick={handleIngredientClick}
             />
           ))}
         </div>

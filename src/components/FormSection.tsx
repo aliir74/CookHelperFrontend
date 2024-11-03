@@ -1,13 +1,10 @@
 import { FORM_SECTION_TEXT } from "../types/consts";
 import FoodType from "../types/food";
-import IngredientType from "../types/ingredient";
-function FormSection({
-  selectedIngredients,
-  setFoods,
-}: {
-  selectedIngredients: IngredientType[];
-  setFoods: (foods: FoodType[]) => void;
-}) {
+import useSelectedIngredients from "../hooks/useSelectedIngredients";
+import useFoods from "../hooks/useFoods";
+function FormSection() {
+  const { selectedIngredients } = useSelectedIngredients();
+  const { setFoods } = useFoods();
   const submitHandler = async () => {
     try {
       const response = await fetch(import.meta.env.VITE_API_URL + "/foods/", {

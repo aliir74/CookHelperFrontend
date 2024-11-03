@@ -1,18 +1,26 @@
+import useSelectedIngredients from "../hooks/useSelectedIngredients";
 import IngredientType from "../types/ingredient";
 
 function IngredientCategoryDropDown({
   title,
   ingredients,
   icon,
-  selectedIngredients,
-  onIngredientClick,
 }: {
   title: string;
   ingredients: Array<{ name: string; type: string; type_display: string }>;
   icon: string;
-  selectedIngredients: IngredientType[];
-  onIngredientClick: (ingredient: IngredientType) => void;
 }) {
+  const { selectedIngredients, setSelectedIngredients } =
+    useSelectedIngredients();
+  const handleIngredientClick = (ingredient: IngredientType) => {
+    const newIngredients = (prevIngredients: IngredientType[]) =>
+      prevIngredients.some((selected) => selected.name === ingredient.name)
+        ? prevIngredients.filter(
+            (selected) => selected.name !== ingredient.name,
+          )
+        : [...prevIngredients, ingredient];
+    setSelectedIngredients(newIngredients(selectedIngredients));
+  };
   const isAnySelected = selectedIngredients.some((selected) =>
     ingredients.some((ingredient) => ingredient.name === selected.name),
   );
@@ -35,7 +43,7 @@ function IngredientCategoryDropDown({
           {ingredients.map((ingredient) => (
             <li key={ingredient.name}>
               <a
-                onClick={() => onIngredientClick(ingredient)}
+                onClick={() => handleIngredientClick(ingredient)}
                 className={
                   selectedIngredients.some(
                     (selected) => selected.name === ingredient.name,
