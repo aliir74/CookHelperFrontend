@@ -1,4 +1,4 @@
-import useSelectedIngredients from "../hooks/useSelectedIngredients";
+import { useAppContext } from "../hooks/useAppContext";
 import IngredientType from "../types/ingredient";
 
 function IngredientCategoryDropDown({
@@ -10,8 +10,7 @@ function IngredientCategoryDropDown({
   ingredients: Array<{ name: string; type: string; type_display: string }>;
   icon: string;
 }) {
-  const { selectedIngredients, setSelectedIngredients } =
-    useSelectedIngredients();
+  const { selectedIngredients, setSelectedIngredients } = useAppContext();
   const handleIngredientClick = (ingredient: IngredientType) => {
     const newIngredients = (prevIngredients: IngredientType[]) =>
       prevIngredients.some((selected) => selected.name === ingredient.name)

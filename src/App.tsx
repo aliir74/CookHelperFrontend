@@ -1,12 +1,15 @@
 import "./App.css";
 import Layout from "./components/Layout";
 import LandingPage from "./components/LandingPage";
+import { AppProvider } from "./contexts/AppProvider";
 
 function App() {
   return (
-    <Layout>
-      <LandingPage />
-    </Layout>
+    <AppProvider>
+      <Layout>
+        <LandingPage />
+      </Layout>
+    </AppProvider>
   );
 }
 

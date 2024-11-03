@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import IngredientCategoryDropDown from "./IngredientCategory";
-import useCategories from "../hooks/useCategories";
+import { useAppContext } from "../hooks/useAppContext";
 import CategoryType from "../types/category";
-import useSelectedIngredients from "../hooks/useSelectedIngredients";
+
 function IngredientSection() {
-  const { categories, setCategories } = useCategories();
-  useSelectedIngredients();
+  const { categories, setCategories } = useAppContext();
   useEffect(() => {
     const fetchCategories = async () => {
       try {

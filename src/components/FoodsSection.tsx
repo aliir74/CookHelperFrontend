@@ -1,9 +1,7 @@
 import Food from "./Food";
-import useSelectedIngredients from "../hooks/useSelectedIngredients";
-import useFoods from "../hooks/useFoods";
+import { useAppContext } from "../hooks/useAppContext";
 function FoodsSection() {
-  const { foods } = useFoods();
-  const { selectedIngredients } = useSelectedIngredients();
+  const { foods, selectedIngredients } = useAppContext();
   return (
     <div className="card w-full bg-base-100 bg-white/80 shadow-xl">
       <div className="card-body">

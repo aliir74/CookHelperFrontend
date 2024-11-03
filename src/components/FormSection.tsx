@@ -1,10 +1,9 @@
 import { FORM_SECTION_TEXT } from "../types/consts";
 import FoodType from "../types/food";
-import useSelectedIngredients from "../hooks/useSelectedIngredients";
-import useFoods from "../hooks/useFoods";
+import { useAppContext } from "../hooks/useAppContext";
+
 function FormSection() {
-  const { selectedIngredients } = useSelectedIngredients();
-  const { setFoods } = useFoods();
+  const { selectedIngredients, setFoods } = useAppContext();
   const submitHandler = async () => {
     try {
       const response = await fetch(import.meta.env.VITE_API_URL + "/foods/", {
@@ -17,6 +16,7 @@ function FormSection() {
         },
       });
       const data = await response.json();
+      console.log(data);
       setFoods(data.foods as FoodType[]);
     } catch (error) {
       console.error("Error fetching foods:", error);
