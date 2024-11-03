@@ -2171,6 +2171,10 @@ html {
   border-radius: 0.25rem;
 }
 
+.rounded-none {
+  border-radius: 0px;
+}
+
 .border-2 {
   border-width: 2px;
 }

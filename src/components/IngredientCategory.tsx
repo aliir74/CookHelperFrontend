@@ -43,13 +43,13 @@ function IngredientCategoryDropDown({
             <li key={ingredient.name}>
               <a
                 onClick={() => handleIngredientClick(ingredient)}
-                className={
+                className={`${
                   selectedIngredients.some(
                     (selected) => selected.name === ingredient.name,
                   )
                     ? "bg-success text-white"
                     : ""
-                }
+                } rounded-none`}
               >
                 {ingredient.name}
               </a>
