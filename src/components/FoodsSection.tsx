@@ -1,7 +1,8 @@
 import Food from "./Food";
 import { useAppContext } from "../hooks/useAppContext";
+import { TEXTS } from "../types/consts";
 function FoodsSection() {
-  const { foods, selectedIngredients, isLoading } = useAppContext();
+  const { foods, selectedIngredients, isLoading, firstLoad } = useAppContext();
   return (
     <div className="card w-full bg-base-100 bg-white/80 shadow-xl">
       <div className="card-body">
@@ -13,6 +14,12 @@ function FoodsSection() {
             <div className="flex h-full items-center justify-center">
               <span className="loading loading-spinner loading-lg"></span>
             </div>
+          ) : firstLoad ? (
+            <>
+              <Food />
+              <Food />
+              <Food />
+            </>
           ) : foods.length > 0 ? (
             foods.map((food) => (
               <Food
@@ -22,11 +29,11 @@ function FoodsSection() {
               />
             ))
           ) : (
-            <>
-              <Food />
-              <Food />
-              <Food />
-            </>
+            <div className="flex h-full items-center justify-center">
+              <span className="text-2xl text-gray-700">
+                {TEXTS.noFoodsFound}
+              </span>
+            </div>
           )}
         </div>
       </div>

@@ -1,11 +1,19 @@
 import { TEXTS } from "../types/consts";
 import FoodType from "../types/food";
 import { useAppContext } from "../hooks/useAppContext";
+import { useCallback, useEffect } from "react";
 
 function FormSection() {
-  const { selectedIngredients, setFoods, isLoading, setIsLoading } =
-    useAppContext();
-  const submitHandler = async () => {
+  const {
+    selectedIngredients,
+    setFoods,
+    isLoading,
+    setIsLoading,
+    firstLoad,
+    setFirstLoad,
+  } = useAppContext();
+
+  const submitHandler = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch(import.meta.env.VITE_API_URL + "/foods/", {
@@ -19,16 +27,22 @@ function FormSection() {
       });
       setTimeout(async () => {
         const data = await response.json();
-        console.log(data);
         setFoods(data.foods as FoodType[]);
         setIsLoading(false);
+        setFirstLoad(false);
       }, 1000);
     } catch (error) {
       console.error("Error fetching foods:", error);
       setFoods([]);
       setIsLoading(false);
     }
-  };
+  }, [selectedIngredients, setFoods, setIsLoading, setFirstLoad]);
+
+  useEffect(() => {
+    if (!firstLoad) {
+      submitHandler();
+    }
+  }, [selectedIngredients, submitHandler, firstLoad]);
 
   return (
     <div

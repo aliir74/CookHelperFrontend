@@ -9,6 +9,7 @@ export const TEXTS = {
   foods: "غذاها",
   ingredients: "مواد اولیه",
   loading: "در حال دریافت غذاها...",
+  noFoodsFound: "هیچ غذایی یافت نشد، مواد اولیه بیشتری انتخاب کن!",
 };
 
 export const DIFFICULTY_COLORS = {

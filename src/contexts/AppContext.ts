@@ -14,6 +14,8 @@ type AppContextType = {
   >;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  firstLoad: boolean;
+  setFirstLoad: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
