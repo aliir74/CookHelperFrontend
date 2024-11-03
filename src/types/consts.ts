@@ -4,6 +4,11 @@ export const TEXTS = {
     hours: "ساعت",
   },
   and: "و",
+  submit: "برو بگرد!",
+  disabled: "مواد اولیه انتخاب کن!",
+  foods: "غذاها",
+  ingredients: "مواد اولیه",
+  loading: "در حال دریافت غذاها...",
 };
 
 export const DIFFICULTY_COLORS = {
@@ -16,9 +21,4 @@ export const DIFFICULTY_TEXT = {
   Easy: "آسان",
   Medium: "متوسط",
   Hard: "سخت",
-};
-
-export const FORM_SECTION_TEXT = {
-  submit: "برو بگرد!",
-  disabled: "اول مواد اولیه رو انتخاب کن!",
 };
