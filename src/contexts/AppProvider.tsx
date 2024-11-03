@@ -10,6 +10,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [selectedIngredients, setSelectedIngredients] = useState<
     IngredientType[]
   >([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <AppContext.Provider
@@ -20,6 +21,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setFoods,
         selectedIngredients,
         setSelectedIngredients,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

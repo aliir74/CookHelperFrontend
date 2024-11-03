@@ -12,6 +12,8 @@ type AppContextType = {
   setSelectedIngredients: React.Dispatch<
     React.SetStateAction<IngredientType[]>
   >;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);

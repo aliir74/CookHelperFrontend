@@ -1,11 +1,10 @@
 import { TEXTS } from "../types/consts";
 import FoodType from "../types/food";
 import { useAppContext } from "../hooks/useAppContext";
-import { useState } from "react";
 
 function FormSection() {
-  const { selectedIngredients, setFoods } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
+  const { selectedIngredients, setFoods, isLoading, setIsLoading } =
+    useAppContext();
   const submitHandler = async () => {
     try {
       setIsLoading(true);
